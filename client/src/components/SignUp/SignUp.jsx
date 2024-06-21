@@ -14,7 +14,7 @@ const SignUp = () => {
                 <p className="or">Or</p>
                 <h2 className="sign">Sign Up</h2>
                 <form className="form">
-                    <div>
+                    <div style={{display:"flex", flexDirection:"row", gap:"40px"}}>
                         <input type="name" placeholder="First Name"></input>
                         <input type="name" placeholder="Last Name"></input>
                     </div>

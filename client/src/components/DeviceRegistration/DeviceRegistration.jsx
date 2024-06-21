@@ -5,23 +5,22 @@ import { Link } from "react-router-dom";
 import "./DeviceRegistration.css"
 
 const DeviceRegistration = () => {
-    return(
-        <div className="SignIn">
+    return (
+        <div className="DeviceRegistration">
             <img className="nav-img" src={navimage}></img>
             <Link className="logo-img" to="/"><img src={logo}></img></Link>
             <div className="card">
-                <p className="google-option"><a>Sign in with Google</a></p>
-                <p className="or">Or</p>
-                <h2 className="sign">Sign In</h2>
+                <h2 className="sign">Device Registration</h2>
+                <p style={{color:"white", marginLeft:"150px", marginTop:"-20px"}}>You are about to DeviceRegistration your meter</p>
                 <form className="form">
-                    <input type="email" placeholder="Email"></input>
-                    <input type="password" placeholder="Password"></input>
-                    <button><Link to="/signin" style={{ color: "#003D96", textDecoration: "white" }}>Sign In</Link></button>
-                    <p className="google-option" style={{ marginLeft: "26%", textDecoration: "none" }}>Already have an account? <Link to="/signup"><a style={{ textDecoration: "underline", color: "white", cursor: "pointer" }}>Sign up</a></Link></p>
+                    <input type="text" placeholder="Your Device ID"></input>
+                    <input type="text" placeholder="Your Mpesa Phone Number"></input>
+                    <button><Link to="/home" style={{ color: "#003D96", textDecoration: "white" }}>Take me Home</Link></button>
 
                 </form>
             </div>
-        </div>    )
+        </div>
+    )
 }
 
 export default DeviceRegistration

@@ -16,7 +16,7 @@ const SignIn = () => {
                 <form className="form">
                     <input type="email" placeholder="Email"></input>
                     <input type="password" placeholder="Password"></input>
-                    <button><Link to="/Recharge" style={{ color: "#003D96", textDecoration: "white" }}>Sign In</Link></button>
+                    <button><Link to="/device" style={{ color: "#003D96", textDecoration: "white" }}>Sign In</Link></button>
                     <p className="google-option" style={{ marginLeft: "26%", textDecoration: "none" }}>Already have an account? <Link to="/signup"><a style={{ textDecoration: "underline", color: "white", cursor: "pointer" }}>Sign up</a></Link></p>
 
                 </form>

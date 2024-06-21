@@ -68,8 +68,8 @@
     margin-bottom: 20px;
 }
 
-.form input {
-    width: 535px;
+.SignIn .card .form input {
+    width: 540px;
 }
 
 .card .form button{

@@ -6,6 +6,7 @@ import SignIn from './components/SignIn/SignIn';
 import Recharge from './components/Recharge/Recharge';
 import Fuliza from './components/Fuliza/Fuliza';
 import Home from './components/Home/Home';
+import DeviceRegistration from './components/DeviceRegistration/DeviceRegistration';
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
       <Route path='/signin' element={<SignIn/>} />
       <Route path='/Recharge' element={<Recharge/>} />
       <Route path='/Fuliza' element={<Fuliza/>} />
-      <Route path='/home' element={<Home/>} />      
+      <Route path='/home' element={<Home/>} /> 
+      <Route path='/device' element={<DeviceRegistration/>} />     
     </Routes>
     </BrowserRouter>
   );

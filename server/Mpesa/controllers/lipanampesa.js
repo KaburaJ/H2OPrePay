@@ -27,16 +27,16 @@ const initiateSTKPush = async (req, res) => {
                 },
                 json: {
                     "BusinessShortCode": process.env.BUSINESS_SHORT_CODE,
-                    "Password": password,
+                    "Password": "Safaricom999!*!",
                     "Timestamp": timestamp,
                     "TransactionType": "CustomerPayBillOnline",
                     "Amount": amount,
-                    "PartyA": phone,
-                    "PartyB": process.env.BUSINESS_SHORT_CODE,
-                    "PhoneNumber": phone,
+                    "PartyA": "600981",
+                    "PartyB": "600000",
+                    "PhoneNumber": "254708374149",
                     "CallBackURL": `${callback_url}/api/stkPushCallback/${Order_ID}`,
                     "AccountReference": "H2o",
-                    "TransactionDesc": "Paid online"
+                    "TransactionDesc": "CustomerPayBillOnline"
                 }
             },
             function (e, response, body) {

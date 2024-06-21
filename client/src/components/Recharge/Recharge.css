@@ -69,8 +69,9 @@
     margin-bottom: 20px;
 }
 
-.form input {
-    width: 500px;
+.Recharge .card .form input {
+    width: 700px;
+    margin-left: 50px;
 }
 
 .card .form button{
