@@ -13,7 +13,7 @@ const Recharge = () => {
     const rechargeRequest = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('https://h2oprepay.onrender.com/stkpush', {
+            await axios.post('http://localhost:5000/stkPush/', {
                 amount,
                 phoneNumber
             }, { withCredentials: true });
