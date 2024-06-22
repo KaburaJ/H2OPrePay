@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Update the CORS configuration
 app.use(cors({
-  origin: 'http://localhost:3000', // Set this to your frontend URL
+  origin: 'https://h2-o-pre-pay.vercel.app/', // Set this to your frontend URL
   credentials: true,
 }));
 
