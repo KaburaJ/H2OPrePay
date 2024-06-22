@@ -177,5 +177,5 @@ app.get("/b2curlrequest", (req, res) => {
 });
 
 server.listen(port, hostname, () => {
-  var server = app.listen(10000, '0.0.0.0',onServerListening);
+  var server = app.listen(10000, '0.0.0.0');
 });
