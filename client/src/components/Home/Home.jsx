@@ -28,6 +28,12 @@ const initialState = {
             borderColor: 'rgba(153,102,255,1)',
             fill: false,
         },
+        {
+            label: 'Humidity data 1(%)',
+            data: [],
+            borderColor: 'rgba(153,102,255,1)',
+            fill: false,
+        },
     ],
 };
 
@@ -37,21 +43,39 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 labels: action.labels,
-                datasets: state.datasets.map((dataset, index) => ({
-                    ...dataset,
-                    data: index === 0 ? action.temperatureData : action.humidityData,
-                })),
+                datasets: state.datasets.map((dataset, index) => {
+                    if (index === 0) {
+                        return {
+                            ...dataset,
+                            data: action.temperatureData
+                        };
+                    } else if (index === 1) {
+                        return {
+                            ...dataset,
+                            data: action.humidityData
+                        };
+                    } else if (index === 2) {
+                        return {
+                            ...dataset,
+                            data: action.humidityData1
+                        };
+                    }
+                    return dataset; // Return unchanged dataset if index does not match
+                })
             };
         default:
             return state;
     }
 };
 
+
 const Home = () => {
     const [data, dispatch] = useReducer(reducer, initialState);
     const [token, setToken] = useState("");
     const [temperatureData, setTemperatureData] = useState(0);
     const [humidityData, setHumidityData] = useState(0);
+    const [humidityData1, setHumidityData1] = useState(0);
+
     const percentage = 66;
     const total = 14800;
     const [showModal, setShowModal] = useState(false);
@@ -152,24 +176,63 @@ const Home = () => {
             }
         };
 
+        const fetchHumidData1 = async () => {
+            try {
+                const currentDate = new Date();
+                const twoDaysAgo = new Date(currentDate.getTime() - (2 * 24 * 60 * 60 * 1000));
+                const formattedCurrentDate = currentDate.toISOString();
+                const formattedTwoDaysAgo = twoDaysAgo.toISOString();
+
+                const response = await axios.get('https://api.waziup.io/api/v2/devices/Esp32/sensors/TC_2/values', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                    params: {
+                        limit: 35,
+                        offset: 2,
+                        sort: 'asc',
+                        date_from: formattedTwoDaysAgo,
+                        date_to: formattedCurrentDate,
+                        calibrated: false
+                    }
+                });
+                const fetchedData = response.data;
+                console.log('Humidity data1 fetched:', fetchedData);
+                const fetchHumidityData1 = fetchedData.map(entry => ({
+                    timestamp: new Date(entry.date_received).toLocaleString().split(" ")[1],
+                    value: entry.value
+                }));
+                setHumidityData1(fetchHumidityData1)
+                return fetchHumidityData1
+            } catch (error) {
+                console.error('Error fetching humidity data1', error);
+                return [];
+            }
+        };
+
         const fetchData = async () => {
             console.log('Fetching data...');
             const tempData = await fetchTempData();
             console.log('Temp data:', tempData);
             const humidData = await fetchHumidData();
             console.log('Humid data:', humidData);
+            const humidData1 = await fetchHumidData1();
+            console.log('Humid data1:', humidData1);
 
             const labels = tempData.map(entry => entry.timestamp);
             const temperatureData = tempData.map(entry => entry.value);
             const humidityData = humidData.map(entry => entry.value);
-
+            const humidityData1 = humidData1.map(entry => entry.value);
             dispatch({
                 type: 'SET_DATA',
                 labels: labels,
                 temperatureData: temperatureData,
                 humidityData: humidityData,
+                humidityData1: humidityData1
             });
         };
+
+        console.log("dddddbbbbbbbbbb",data);
 
         if (token) {
             fetchData();
@@ -226,6 +289,29 @@ const Home = () => {
                 type: "line",
                 pointHitRadius: 10,
                 data: data.datasets[0].data,
+                order: 1,
+            },
+            {
+                label: 'Cumulative Value',
+                fill: false,
+                lineTension: 0.1,
+                backgroundColor: 'red',
+                borderColor: 'red',
+                borderCapStyle: 'butt',
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: 'miter',
+                pointBorderColor: '#FFF',
+                pointBackgroundColor: '#fff',
+                pointBorderWidth: 1,
+                pointHoverRadius: 5,
+                pointHoverBackgroundColor: '#FFF',
+                pointHoverBorderColor: '#FFF',
+                pointHoverBorderWidth: 2,
+                pointRadius: 1,
+                type: "line",
+                pointHitRadius: 10,
+                data: data.datasets[2].data,
                 order: 1,
             },
         ]
